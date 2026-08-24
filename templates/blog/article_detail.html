@@ -2,17 +2,18 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ article.title }}</h1>
-
-{% if article.author %}
- <p><small>Muallif: {{ article.author.username }}</small></p>
-{% endif %}
-<p><small>{{ article.created_at }}</small></p>
-
-<hr>
-<p>{{ article.content }}</p>
-
-<p><a href="{% url 'article_list' %}">Orqaga</a></p>
+    
+    <div class="row">
+        <div class="col">
+            <img class="w-100" src="{{ article.image.url }}" alt="">
+        </div>
+        <div class="col">
+            <h1 class="text-center ">{{ article.title }}</h1>
+            <p class="text-secondary">{{ article.content }}</p>
+            <p>Muallif : <span class="text-decoration-underline">{{ article.author }}</span></p>
+            <p>Qo'shilgan vaqti : <span class="text-decoration-underline">{{ article.created_at }}</span></p>
+        </div>
+    </div>
 {% endblock %}
 
 
