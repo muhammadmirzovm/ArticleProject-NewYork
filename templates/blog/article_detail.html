@@ -1,11 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
     
     <div class="row">
         <div class="col">
-            <img class="w-100" src="{{ article.image.url }}" alt="">
+            {% if article.image %}
+  <img style="width: 95% !important;" src="{{ article.image.url }}" class="card-img-top m-1 mx-auto w-100" alt="...">
+  {% else %}
+  <img style="width: 95% !important;" src="{% static 'images/default.png' %}" class="card-img-top m-1 mx-auto w-100" alt="...">
+{% endif %}
         </div>
         <div class="col">
             <h1 class="text-center ">{{ article.title }}</h1>

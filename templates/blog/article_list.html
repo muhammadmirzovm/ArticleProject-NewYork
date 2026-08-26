@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Maqolalar{% endblock %}
 
 {% block content %}
@@ -8,7 +9,11 @@
   {% for article in articles %}
   <div class="col-3">
      <div class="card">
+      {% if article.image %}
   <img style="width: 95% !important;" src="{{ article.image.url }}" class="card-img-top m-1 mx-auto w-100" alt="...">
+  {% else %}
+  <img style="width: 95% !important;" src="{% static 'images/default.png' %}" class="card-img-top m-1 mx-auto w-100" alt="...">
+{% endif %}
   <div class="card-body">
     <div class="badges">
       <span class="badge text-bg-dark">{{ article.author }}</span>
