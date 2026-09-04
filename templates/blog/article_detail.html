@@ -17,6 +17,12 @@
             <p class="text-secondary">{{ article.content }}</p>
             <p>Muallif : <span class="text-decoration-underline">{{ article.author }}</span></p>
             <p>Qo'shilgan vaqti : <span class="text-decoration-underline">{{ article.created_at }}</span></p>
+            {% if user.is_authenticated and article.author == user %}
+            <p>
+                <a class="btn btn-success" href="{% url 'article_edit' article.slug %}">Edit</a>
+                <a class="btn btn-success" href="{% url 'article_delete' article.slug %}">Delete</a>
+            </p>
+             {% endif %}
         </div>
     </div>
 {% endblock %}

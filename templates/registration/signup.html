@@ -1,17 +1,22 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
+
 {% block title %}Signup{% endblock %}
 
 {% block content %}
-<h1>Signup</h1>
+<div class="col-5 mx-auto">
+    <h1 class="text-center">Signup</h1>
 
 <form method="post">
  {% csrf_token %}
- {{ form.as_p }}
- <button type="submit">Ro‘yxatdan o‘tish</button>
+ {{ form  | crispy  }}
+ <button class="btn btn-primary" type="submit">Ro‘yxatdan o‘tish</button>
+ 
+ <p class="text-center">
+     Akkauntingiz bormi?
+     <a class="btn btn-outline-primary" href="{% url 'login' %}">Login</a>
+    </p>
 </form>
-
-<p>
- Akkauntingiz bormi?
- <a href="{% url 'login' %}">Login</a>
-</p>
 {% endblock %}
+
+</div>

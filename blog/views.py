@@ -2,10 +2,30 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Article
 from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm
+from django.http import HttpResponseForbidden
+from django.db.models import Q
 
 def article_list(request):
-   articles = Article.objects.all().order_by("-created_at")
-   return render(request, "blog/article_list.html", {"articles": articles})
+    articles = Article.objects.all()
+
+    q = request.GET.get("q")
+    mine = request.GET.get("mine")
+
+    if q:
+        articles = articles.filter(
+            Q(title__icontains=q) | Q(content__icontains=q)
+        )
+
+    if mine == "1" and request.user.is_authenticated:
+        articles = articles.filter(author=request.user)
+
+    articles = articles.order_by("-created_at")
+
+    return render(request, "blog/article_list.html", {
+        "articles": articles,
+        "q": q,
+        "mine": mine,
+    })
 
 def article_detail(request, slug):
    article = get_object_or_404(Article, slug=slug)
@@ -23,3 +43,30 @@ def article_create(request):
        article.save()
        return redirect("article_detail", slug=article.slug)
    return render(request, "blog/article_form.html", {"form": form})
+
+
+
+
+@login_required
+def article_edit(request , slug):
+   article = get_object_or_404(Article ,slug=slug)
+   if article.author != request.user:
+      return  HttpResponseForbidden("Ruxsat yoq")
+   form =ArticleForm(request.POST or None ,request.FILES or None , instance=article)
+   if request.method == "POST" and form.is_valid():
+      form.save()
+      return redirect("article_detail" , slug=article.slug)
+   return render(request , "blog/article_form.html" ,{"form":form})
+
+@login_required
+def article_delete(request, slug):
+   article = get_object_or_404(Article, slug=slug)
+   
+   if article.author != request.user:
+      if article.author != request.user:
+        return HttpResponseForbidden("Ruxsat yoq")
+   
+   if request.method == "POST":
+      article.delete()
+      return redirect("article_list")
+   return render(request ,"blog/article_confirm_delete.html" , {"article" : article})

@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+          'crispy_bootstrap5',
     'blog', 
     'accounts',
 ]
@@ -135,3 +137,4 @@ MAILERS = {
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "article_list"
 LOGOUT_REDIRECT_URL = "article_list"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

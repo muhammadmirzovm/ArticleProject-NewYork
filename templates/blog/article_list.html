@@ -3,9 +3,23 @@
 {% block title %}Maqolalar{% endblock %}
 
 {% block content %}
-<div class="row">
+<div class="row  ">
     <h1 class="text-center my-4">Maqolalar</h1>
-
+ <form method="get">
+  <div class="input-group my-5">
+  <input value="{{ q|default:'' }}" name='q'  type="text" class="form-control" placeholder="Recipient’s username" aria-label="Recipient’s username with two button addons">
+  <button class="btn btn-outline-secondary" type="submit">Search</button>
+  <a href="{% url 'article_list'%}" class="btn btn-outline-secondary" type="button">Reset</a>
+</div>
+ </form>
+ {% if user.is_authenticated %}
+ <p>
+  <a class="btn btn-dark" href="/?mine=1">Mening articlelarim</a>
+ </p>
+ {% endif %}
+ {% if user.is_authenticated and q %}
+<a class="btn btn-dark" href="/?q={{ q|urlencode}}&mine=1">Mening + qidiruv</a>
+{% endif %}
   {% for article in articles %}
   <div class="col-3">
      <div class="card">
@@ -28,5 +42,3 @@
   {% endfor %}
 </div>
 {% endblock %}
-
-

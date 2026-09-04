@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm 
 from django.shortcuts import render, redirect
+
 
 def signup(request):
    form = UserCreationForm(request.POST or None)
@@ -8,4 +9,10 @@ def signup(request):
        form.save()
        return redirect("login")
    return render(request, "registration/signup.html", {"form": form})
+
+
+
+
+
+
 

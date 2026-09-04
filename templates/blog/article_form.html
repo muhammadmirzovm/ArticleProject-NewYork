@@ -1,11 +1,18 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}Article Form{% endblock %}
 {% block content %}
-<h1>Article Form</h1>
 <form method="post" enctype="multipart/form-data">
- {% csrf_token %}
- {{ form.as_p }}
- <button type="submit">Saqlash</button>
+    {% csrf_token %}
+   <div class="col-5 mx-auto">
+     <h1>Article Form</h1>
+ {{ form | crispy }}
+ <div class="text_center">
+     <p>
+         <a class="btn btn-secondary" href="{% url 'article_list' %}">Orqaga</a>
+        </p>
+        <button class="btn btn-secondary" type="submit">Saqlash</button>
+ </div>
 </form>
-<p><a href="{% url 'article_list' %}">Orqaga</a></p>
+   </div>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Maqola o'chirish{% endblock %}
+{% block content %}
+<h1>Maqola o'chirish</h1>
+<p>Rostdan ham o`chirmoqchimisiz?</p>
+<p><b>{{ article.title }}</b></p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-secondary" type="submit">Ha, o'chirish</button>
+</form>
+<p><a class="btn btn-danger mt-2" href="{% url 'article_detail' article.slug %}">Yo'q orqaga</a></p>
+{% endblock %}
